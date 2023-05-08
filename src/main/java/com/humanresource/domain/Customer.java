@@ -138,9 +138,7 @@ public class Customer implements Serializable {
 		this.phones = phones;
 	}
 
-	public Set<Integer> getRoles() {
-		return roles;
-	}
+
 
 	public void setRoles(Set<Integer> roles) {
 		this.roles = roles;
@@ -154,7 +152,7 @@ public class Customer implements Serializable {
 		this.orders = orders;
 	}
 
-	public Set<Role> getPerfis() {
+	public Set<Role> getRoles() {
 		return roles.stream().map(x -> Role.toEnum(x)).collect(Collectors.toSet());
 	}
 	

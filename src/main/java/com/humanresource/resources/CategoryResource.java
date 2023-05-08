@@ -22,7 +22,7 @@ import com.humanresource.dto.CategoryDTO;
 import com.humanresource.service.CategoryService;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value="/categories")
 public class CategoryResource {
 	
 	@Autowired
@@ -34,32 +34,30 @@ public class CategoryResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO objDto) {
-		Category obj = service.fromDTO(objDto);
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-			.path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDto, @PathVariable Integer id) {
-		Category obj = service.fromDTO(objDto);
-		obj.setId(id);
-		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
-	
+	  @PreAuthorize("hasAnyRole('ADMIN')")
+	  
+	  @RequestMapping(method=RequestMethod.POST) public ResponseEntity<Void>
+	  insert(@Valid @RequestBody CategoryDTO objDto) { Category obj =
+	  service.fromDTO(objDto); obj = service.insert(obj); URI uri =
+	  ServletUriComponentsBuilder.fromCurrentRequest()
+	  .path("/{id}").buildAndExpand(obj.getId()).toUri(); return
+	  ResponseEntity.created(uri).build(); }
+	  
+	  @PreAuthorize("hasAnyRole('ADMIN')")
+	  
+	  @RequestMapping(value="/{id}", method=RequestMethod.PUT) public
+	  ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO
+	  objDto, @PathVariable Integer id) { Category obj = service.fromDTO(objDto);
+	  obj.setId(id); obj = service.update(obj); return
+	  ResponseEntity.noContent().build(); }
+	  
+	  @PreAuthorize("hasAnyRole('ADMIN')")
+	  
+	  @RequestMapping(value="/{id}", method=RequestMethod.DELETE) public
+	  ResponseEntity<Void> delete(@PathVariable Integer id) { service.delete(id);
+	  return ResponseEntity.noContent().build(); }
+	 
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<CategoryDTO>> findAll() {
 		List<Category> list = service.findAll();
@@ -67,15 +65,20 @@ public class CategoryResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<CategoryDTO>> findPage(
-			@RequestParam(value="page", defaultValue="0") Integer page, 
-			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
-			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Category> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<CategoryDTO> listDto = list.map(obj -> new CategoryDTO(obj));  
-		return ResponseEntity.ok().body(listDto);
-	}
+	
+	  @RequestMapping(value="/page", method=RequestMethod.GET) public
+	  ResponseEntity<Page<CategoryDTO>> findPage(
+	  
+	  @RequestParam(value="page", defaultValue="0") Integer page,
+	  
+	  @RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+	  
+	  @RequestParam(value="orderBy", defaultValue="nome") String orderBy,
+	  
+	  @RequestParam(value="direction", defaultValue="ASC") String direction) {
+	  Page<Category> list = service.findPage(page, linesPerPage, orderBy,
+	  direction); Page<CategoryDTO> listDto = list.map(obj -> new
+	  CategoryDTO(obj)); return ResponseEntity.ok().body(listDto); }
+	 
 }
 
