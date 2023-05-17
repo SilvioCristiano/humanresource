@@ -14,8 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -25,29 +27,36 @@ public class Product  implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
-	private Double price;
+	private String title;
+	private String companyName;
 	
+	private String description;
+	private Double price;
+
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "Product_CATEGORY",
+	@JoinTable(name = "PRODUCT_CATEGORY",
 		joinColumns = @JoinColumn(name = "product_id"),
 		inverseJoinColumns = @JoinColumn(name = "category_id")
 	)
+	
 	private List<Category> categories = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="id.product")
 	private Set<ItemOrder> itens = new HashSet<>();
-	
+
 	public Product() {
 	}
 
-	public Product(Integer id, String name, Double price) {
+	public Product(Integer id, String companyName, String title, String description,  Double price) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.companyName = companyName;
+		this.description = description;
+		this.title = title;
 		this.price = price;
+	
 	}
 
 	@JsonIgnore
@@ -68,12 +77,12 @@ public class Product  implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCompanyName(String name) {
+		this.companyName = name;
 	}
 
 	public Double getPrice() {
@@ -100,6 +109,29 @@ public class Product  implements Serializable {
 		this.itens = itens;
 	}
 	
+	
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

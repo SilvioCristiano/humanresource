@@ -24,6 +24,7 @@ public class Address implements Serializable {
 	private String district;
 	private String zipcode;
 	
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="customer_id")
@@ -48,7 +49,7 @@ public class Address implements Serializable {
 		this.customer = customer;
 		this.setCity(city);
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -114,6 +115,8 @@ public class Address implements Serializable {
 	public void setCity(City city) {
 		this.city = city;
 	}
+	
+
 
 	@Override
 	public int hashCode() {

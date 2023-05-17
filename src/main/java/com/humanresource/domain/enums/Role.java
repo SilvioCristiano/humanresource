@@ -3,7 +3,8 @@ package com.humanresource.domain.enums;
 public enum Role {
 	
 	ADMIN(1, "ROLE_ADMIN"),
-	CUSTOMER(2, "ROLE_CUSTOMER");
+	CUSTOMER(2, "ROLE_CUSTOMER"),
+	EMPLOYER(3, "ROLE_EMPLOYER");
 	
 	private int cod;
 	private String description;

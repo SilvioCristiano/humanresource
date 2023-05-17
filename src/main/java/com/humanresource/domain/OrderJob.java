@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class OrderJob implements Serializable {
@@ -31,16 +32,21 @@ public class OrderJob implements Serializable {
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 	
+	@JsonIgnore
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="orderjob")
 	private Payment payment;
-
+	
+	
 	@ManyToOne
 	@JoinColumn(name="customer_id")
 	private Customer customer;
 	
+
+	
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Address enderecoDeEntrega;
+	
 	
 	@OneToMany(mappedBy="id.orderjob")
 	private Set<ItemOrder> itens = new HashSet<>();

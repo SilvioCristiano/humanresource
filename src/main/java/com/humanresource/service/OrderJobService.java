@@ -13,6 +13,7 @@ import com.humanresource.domain.Customer;
 import com.humanresource.domain.ItemOrder;
 import com.humanresource.domain.PaymentComBoleto;
 import com.humanresource.domain.OrderJob;
+import com.humanresource.domain.enums.Role;
 import com.humanresource.domain.enums.StatePayment;
 import com.humanresource.repositories.ItemOrderRepository;
 import com.humanresource.repositories.PaymentRepository;
@@ -50,6 +51,8 @@ public class OrderJobService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + OrderJob.class.getName()));
 	}
+	
+
 	
 	public OrderJob insert(OrderJob obj) {
 		obj.setId(null);

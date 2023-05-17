@@ -19,7 +19,7 @@ import com.humanresource.domain.OrderJob;
 import com.humanresource.service.OrderJobService;
 
 @RestController
-@RequestMapping(value="/pedidos")
+@RequestMapping(value="/orderjob")
 public class OrderJobResource {
 	
 	@Autowired
@@ -28,6 +28,7 @@ public class OrderJobResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<OrderJob> find(@PathVariable Integer id) {
 		OrderJob obj = service.find(id);
+		System.out.print(ResponseEntity.ok().body(obj));
 		return ResponseEntity.ok().body(obj);
 	}
 	

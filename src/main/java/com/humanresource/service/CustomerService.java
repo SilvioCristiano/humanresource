@@ -25,6 +25,8 @@ import com.humanresource.domain.enums.TypeCustomer;
 import com.humanresource.dto.CustomerDTO;
 import com.humanresource.dto.CustomerNewDTO;
 import com.humanresource.repositories.CustomerRepository;
+import com.humanresource.repositories.EducationRepository;
+import com.humanresource.repositories.ExperienceRepository;
 import com.humanresource.repositories.AddressRepository;
 import com.humanresource.security.UserSS;
 import com.humanresource.service.exceptions.AuthorizationException;
@@ -38,6 +40,12 @@ public class CustomerService {
 	
 	@Autowired
 	private AddressRepository addressRepository;
+	
+	@Autowired
+	private EducationRepository educationRepository;
+	
+	@Autowired
+	private ExperienceRepository experienceRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -70,6 +78,8 @@ public class CustomerService {
 	public Customer insert(Customer obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
+		experienceRepository.saveAll(obj.getExperiencies());
+		educationRepository.saveAll(obj.getEducations());
 		addressRepository.saveAll(obj.getAddresses());
 		return obj;
 	}

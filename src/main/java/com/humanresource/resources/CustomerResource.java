@@ -80,7 +80,7 @@ public class CustomerResource {
 	public ResponseEntity<Page<CustomerDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="name") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Customer> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<CustomerDTO> listDto = list.map(obj -> new CustomerDTO(obj));  

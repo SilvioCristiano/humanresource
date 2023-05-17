@@ -42,10 +42,19 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
 	private List<Address> addresses = new ArrayList<>();
 	
+	
+	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL) 
+	private List<Education> educations = new ArrayList<>();
+	
+	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL) 
+	private List<Experience> experiencies = new ArrayList<>();
+	 
 	@ElementCollection
 	@CollectionTable(name="PHONE")
 	private Set<String> phones = new HashSet<>();
 	
+
+
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="ROLES")
 	private Set<Integer> roles = new HashSet<>();
@@ -58,13 +67,13 @@ public class Customer implements Serializable {
 		addRole(Role.CUSTOMER);
 	}
 
-	public Customer(Integer id, String name, String email, String cpfOuCnpj, TypeCustomer tipo, String password) {
+	public Customer(Integer id, String name, String email, String cpfOuCnpj, TypeCustomer type, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.type = (type==null) ? null : tipo.getCod();
+		this.type = (type==null) ? null : type.getCod();
 		this.password = password;
 		addRole(Role.CUSTOMER);
 	}
@@ -106,12 +115,12 @@ public class Customer implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getType() {
-		return type;
+	public TypeCustomer getType() {
+		return TypeCustomer.toEnum(type);
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setType(TypeCustomer type) {
+		this.type = type.getCod();
 	}
 
 	public String getPassword() {
@@ -126,10 +135,27 @@ public class Customer implements Serializable {
 		return addresses;
 	}
 
+	
+	public void setEducations(List<Education> educations) { 
+		this.educations =educations; 
+		
+	}
+	
+	public List<Education> getEducations() { 
+		return educations; }
+	
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
+	
+	public List<Experience> getExperiencies() {
+		return experiencies;
+	}
 
+	public void setExperiencies(List<Experience> experiencies) {
+		this.experiencies = experiencies;
+	}
+	
 	public Set<String> getPhones() {
 		return phones;
 	}

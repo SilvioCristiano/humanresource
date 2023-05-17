@@ -114,7 +114,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 		public String toString() {
 			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 			StringBuilder builder = new StringBuilder();
-			builder.append(getProduct().getName());
+			builder.append(getProduct().getCompanyName());
 			builder.append(", Qte: ");
 			builder.append(getAmount());
 			builder.append(", Preço unitário: ");
